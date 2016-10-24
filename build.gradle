@@ -1,4 +1,4 @@
-group 'net.hiphop-producciones.dev'
+group 'pm.hhp'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
@@ -12,4 +12,6 @@ repositories {
 dependencies {
   testCompile group: 'junit', name: 'junit', version: '4.11'
   testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
+  testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+
 }

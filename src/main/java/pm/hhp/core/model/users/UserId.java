@@ -1,4 +1,4 @@
-package net.hiphopproducciones.dev.core.model.users;
+package pm.hhp.core.model.users;
 
 import java.util.UUID;
 

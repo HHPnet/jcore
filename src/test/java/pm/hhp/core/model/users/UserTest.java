@@ -1,4 +1,4 @@
-package net.hiphopproducciones.dev.core.model.users;
+package pm.hhp.core.model.users;
 
 import org.junit.After;
 import org.junit.Before;
