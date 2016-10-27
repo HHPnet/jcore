@@ -1,0 +1,24 @@
+group 'pm.hhp'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+
+sourceCompatibility = 1.8
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testCompile group: 'junit', name: 'junit', version: '4.11'
+  testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
+  testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+}
+
+
+checkstyle {
+  configFile = file('checkstyle.xml')
+  toolVersion = '7.1.2'
+  showViolations = true
+}
