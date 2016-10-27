@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import pm.hhp.core.services.users.UserResponse;
 
 import java.util.UUID;
 
@@ -17,8 +18,9 @@ public class UserFactoryTest {
 
   private static final String USER_EMAIL = "test";
 
-  @Mock
-  private UserId userId;
+  @Mock private UserId userId;
+
+  @Mock private User user;
 
   private UserFactory factory;
 
@@ -47,11 +49,17 @@ public class UserFactoryTest {
 
   @Test
   public void itIsPossibleToGetUserEntityGivenAUUIDgAsUserId() {
-    assertThat(factory.getUserEntity(UUID.fromString(USER_ID), USER_NAME, USER_EMAIL)).isInstanceOf(User.class);
+    assertThat(factory.getUserEntity(UUID.fromString(USER_ID), USER_NAME, USER_EMAIL))
+        .isInstanceOf(User.class);
   }
 
   @Test
   public void itIsPossibleToGetUserEntityGivenNameAndEmail() {
     assertThat(factory.getUserEntity(USER_NAME, USER_EMAIL)).isInstanceOf(User.class);
+  }
+
+  @Test
+  public void itIsPossibleToGetAUserResponseEntityGivenAnUser() {
+    assertThat(factory.getUserResponse(user)).isInstanceOf(UserResponse.class);
   }
 }

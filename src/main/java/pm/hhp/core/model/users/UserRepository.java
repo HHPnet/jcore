@@ -17,42 +17,12 @@
 
 package pm.hhp.core.model.users;
 
-import java.util.UUID;
+import pm.hhp.core.model.users.exceptions.UserNotFoundException;
 
-class UserId {
-  private UUID userId;
+public interface UserRepository {
+  User save(User user);
 
-  /**
-   * Generates an user id given a UUID.
-   *
-   * @param userId Id of the user to set up.
-   */
-  UserId(UUID userId) {
-    this.userId = userId;
-  }
+  User findById(String userId) throws UserNotFoundException;
 
-  /**
-   * Generates a random user id.
-   */
-  UserId() {
-    this.userId = UUID.randomUUID();
-  }
-
-  /**
-   * Generates an user id given an string.
-   *
-   * @param userId Id of the user to set up.
-   */
-  UserId(String userId) {
-    this.userId = UUID.fromString(userId);
-  }
-
-  /**
-   * Get the value of the user id.
-   *
-   * @return String
-   */
-  String getUserId() {
-    return userId.toString();
-  }
+  User findByEmail(String email) throws UserNotFoundException;
 }

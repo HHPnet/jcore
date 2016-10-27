@@ -5,4 +5,4 @@ branches:
   only:
   - master
 script:
-- ./gradlew clean check
+- ./gradlew clean test checkstyleMain

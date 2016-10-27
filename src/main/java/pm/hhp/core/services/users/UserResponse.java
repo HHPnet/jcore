@@ -15,44 +15,47 @@
  *
  */
 
-package pm.hhp.core.model.users;
+package pm.hhp.core.services.users;
 
-import java.util.UUID;
+import pm.hhp.core.model.users.User;
+import pm.hhp.core.services.ServiceResponse;
 
-class UserId {
-  private UUID userId;
+public class UserResponse implements ServiceResponse {
+  private User user;
 
   /**
-   * Generates an user id given a UUID.
+   * Generates an user response entity.
    *
-   * @param userId Id of the user to set up.
+   * @param user User to return.
    */
-  UserId(UUID userId) {
-    this.userId = userId;
+  public UserResponse(User user) {
+    this.user = user;
   }
 
   /**
-   * Generates a random user id.
-   */
-  UserId() {
-    this.userId = UUID.randomUUID();
-  }
-
-  /**
-   * Generates an user id given an string.
-   *
-   * @param userId Id of the user to set up.
-   */
-  UserId(String userId) {
-    this.userId = UUID.fromString(userId);
-  }
-
-  /**
-   * Get the value of the user id.
+   * Get the id of the user.
    *
    * @return String
    */
   String getUserId() {
-    return userId.toString();
+    return user.getUserId();
+  }
+
+  /**
+   * Get the name of the user.
+   *
+   * @return String
+   */
+  String getName() {
+    return user.getName();
+  }
+
+  /**
+   * Get the email of the user.
+   *
+   * @return String
+   */
+  String getEmail() {
+    return user.getEmail();
   }
 }
