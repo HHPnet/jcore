@@ -20,7 +20,6 @@ package pm.hhp.core.services.groups.create;
 import pm.hhp.core.model.groups.Group;
 import pm.hhp.core.model.groups.GroupFactory;
 import pm.hhp.core.model.groups.GroupRepository;
-import pm.hhp.core.model.groups.exceptions.GroupAlreadyExists;
 import pm.hhp.core.model.groups.exceptions.GroupNotFoundException;
 import pm.hhp.core.services.Service;
 import pm.hhp.core.services.groups.GroupRequest;
@@ -43,19 +42,10 @@ class CreateGroupService implements Service<GroupRequest, GroupResponse> {
             request.getName(), request.getDescription(), request.getCity(), request.getCountry());
 
     try {
-      checkGroupDoesNotExist(group);
-      return factory.getGroupResponse(repository.save(group));
-    } catch (GroupAlreadyExists groupAlreadyExists) {
-      return null;
-    }
-  }
-
-  private boolean checkGroupDoesNotExist(Group group) throws GroupAlreadyExists {
-    try {
       repository.findByName(group.getName());
-      throw new GroupAlreadyExists();
+      return null;
     } catch (GroupNotFoundException groupNotFoundException) {
-      return true;
+      return factory.getGroupResponse(repository.save(group));
     }
   }
 }

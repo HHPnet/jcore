@@ -20,13 +20,12 @@ package pm.hhp.core.services.users.create;
 import pm.hhp.core.model.users.User;
 import pm.hhp.core.model.users.UserFactory;
 import pm.hhp.core.model.users.UserRepository;
-import pm.hhp.core.model.users.exceptions.UserAlreadyRegistered;
 import pm.hhp.core.model.users.exceptions.UserNotFoundException;
 import pm.hhp.core.services.Service;
 import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
-public class CreateUserService implements Service<UserRequest, UserResponse> {
+class CreateUserService implements Service<UserRequest, UserResponse> {
   private UserRepository repository;
 
   private UserFactory factory;
@@ -37,7 +36,7 @@ public class CreateUserService implements Service<UserRequest, UserResponse> {
    * @param repository User repository.
    * @param factory User factory.
    */
-  public CreateUserService(UserRepository repository, UserFactory factory) {
+  CreateUserService(UserRepository repository, UserFactory factory) {
     this.repository = repository;
     this.factory = factory;
   }
@@ -47,20 +46,10 @@ public class CreateUserService implements Service<UserRequest, UserResponse> {
     User user = factory.getUserEntity(request.getName(), request.getEmail());
 
     try {
-      checkIfEmailExists(user);
-
-      return factory.getUserResponse(repository.save(user));
-    } catch (UserAlreadyRegistered userAlreadyRegistered) {
-      return null;
-    }
-  }
-
-  private boolean checkIfEmailExists(User user) throws UserAlreadyRegistered {
-    try {
       repository.findByEmail(user.getEmail());
-      throw new UserAlreadyRegistered();
+      return null;
     } catch (UserNotFoundException userNotFoundException) {
-      return false;
+      return factory.getUserResponse(repository.save(user));
     }
   }
 }
