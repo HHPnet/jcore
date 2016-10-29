@@ -27,7 +27,7 @@ public class UserTest {
 
   @Test
   public void itIsPossibleToGetUserId() {
-    assertThat(user.getUserId()).isEqualTo(USER_ID.getUserId());
+    assertThat(user.getUserId()).isEqualTo(USER_ID.getId());
   }
 
   @Test

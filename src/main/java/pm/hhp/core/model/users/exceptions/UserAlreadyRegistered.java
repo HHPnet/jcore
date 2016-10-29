@@ -17,5 +17,4 @@
 
 package pm.hhp.core.model.users.exceptions;
 
-public class UserAlreadyRegistered extends Exception {
-}
+public class UserAlreadyRegistered extends Exception {}

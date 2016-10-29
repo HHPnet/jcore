@@ -35,6 +35,7 @@ public class UserFactoryTest {
   public void tearDown() throws Exception {
     factory = null;
     userId = null;
+    user = null;
   }
 
   @Test

@@ -44,7 +44,7 @@ public class User {
    * @return String
    */
   public String getUserId() {
-    return userId.getUserId();
+    return userId.getId();
   }
 
   /**

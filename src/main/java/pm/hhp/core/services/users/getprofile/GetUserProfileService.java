@@ -15,7 +15,7 @@
  *
  */
 
-package pm.hhp.core.services.users.getone;
+package pm.hhp.core.services.users.getprofile;
 
 import pm.hhp.core.model.users.UserFactory;
 import pm.hhp.core.model.users.UserRepository;
@@ -24,7 +24,7 @@ import pm.hhp.core.services.Service;
 import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
-public class GetOneUserInformationService implements Service<UserRequest, UserResponse> {
+public class GetUserProfileService implements Service<UserRequest, UserResponse> {
   private UserRepository repository;
 
   private UserFactory factory;
@@ -35,7 +35,7 @@ public class GetOneUserInformationService implements Service<UserRequest, UserRe
    * @param repository User repository.
    * @param factory User factory.
    */
-  public GetOneUserInformationService(UserRepository repository, UserFactory factory) {
+  public GetUserProfileService(UserRepository repository, UserFactory factory) {
     this.repository = repository;
     this.factory = factory;
   }

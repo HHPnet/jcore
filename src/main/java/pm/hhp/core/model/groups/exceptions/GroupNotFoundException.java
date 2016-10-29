@@ -15,20 +15,6 @@
  *
  */
 
-package pm.hhp.core.model.users;
+package pm.hhp.core.model.groups.exceptions;
 
-import pm.hhp.core.model.SharedId;
-
-import java.util.UUID;
-
-class UserId extends SharedId {
-  UserId(UUID uuid) {
-    super(uuid);
-  }
-
-  UserId() {}
-
-  UserId(String uuid) {
-    super(uuid);
-  }
-}
+public class GroupNotFoundException extends Exception {}
