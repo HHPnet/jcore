@@ -15,7 +15,7 @@
  *
  */
 
-package pm.hhp.core.services.users.getone;
+package pm.hhp.core.services.users.getprofile;
 
 import org.junit.After;
 import org.junit.Before;
@@ -37,31 +37,26 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class GetOneUserInformationServiceTest {
+public class GetUserProfileServiceTest {
   private static final String USER_ID = "test_id";
 
-  private GetOneUserInformationService service;
+  private GetUserProfileService service;
 
-  @Mock
-  private UserRepository repository;
+  @Mock private UserRepository repository;
 
-  @Mock
-  private UserFactory factory;
+  @Mock private UserFactory factory;
 
-  @Mock
-  private UserRequest request;
+  @Mock private UserRequest request;
 
-  @Mock
-  private User user;
+  @Mock private User user;
 
-  @Mock
-  private UserResponse response;
+  @Mock private UserResponse response;
 
   @Before
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
 
-    service = new GetOneUserInformationService(repository, factory);
+    service = new GetUserProfileService(repository, factory);
   }
 
   @After
@@ -75,7 +70,7 @@ public class GetOneUserInformationServiceTest {
   }
 
   @Test
-  public void itDoesNotSaveDataForANonExistingUser() throws UserNotFoundException {
+  public void itDoesNotGetDataForANonExistingUser() throws UserNotFoundException {
     givenARequestToFindAnUser();
     userCouldNotBeFound();
 
@@ -83,7 +78,7 @@ public class GetOneUserInformationServiceTest {
   }
 
   @Test
-  public void itSavesAnUserWhenExisting() throws UserNotFoundException {
+  public void itGetsAnUserWhenExisting() throws UserNotFoundException {
     givenARequestToFindAnUser();
     userExistsInDatabase();
     andGetAnUserEntityFromTheFactory();

@@ -15,20 +15,22 @@
  *
  */
 
-package pm.hhp.core.model.users;
+package pm.hhp.core.model.groups;
 
 import pm.hhp.core.model.SharedId;
 
 import java.util.UUID;
 
-class UserId extends SharedId {
-  UserId(UUID uuid) {
+class GroupId extends SharedId {
+  GroupId(UUID uuid) {
     super(uuid);
   }
 
-  UserId() {}
+  GroupId() {
+    super();
+  }
 
-  UserId(String uuid) {
+  GroupId(String uuid) {
     super(uuid);
   }
 }

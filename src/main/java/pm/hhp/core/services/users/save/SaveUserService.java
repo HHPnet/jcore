@@ -46,9 +46,7 @@ class SaveUserService implements Service<UserRequest, UserResponse> {
 
     User user =
         factory.getUserEntity(
-            request.getUserId().orElse(null),
-            request.getName(),
-            request.getEmail());
+            request.getUserId().orElse(null), request.getName(), request.getEmail());
     try {
       userExists(user);
 

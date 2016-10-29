@@ -15,20 +15,35 @@
  *
  */
 
-package pm.hhp.core.model.users;
+package pm.hhp.core.services.groups;
 
-import pm.hhp.core.model.SharedId;
+import pm.hhp.core.model.groups.Group;
+import pm.hhp.core.services.ServiceResponse;
 
-import java.util.UUID;
+public class GroupResponse implements ServiceResponse {
+  private Group group;
 
-class UserId extends SharedId {
-  UserId(UUID uuid) {
-    super(uuid);
+  public GroupResponse(Group group) {
+    this.group = group;
   }
 
-  UserId() {}
+  public String getGroupId() {
+    return group.getGroupId();
+  }
 
-  UserId(String uuid) {
-    super(uuid);
+  public String getName() {
+    return group.getName();
+  }
+
+  public String getDescription() {
+    return group.getDescription();
+  }
+
+  public String getCity() {
+    return group.getCity();
+  }
+
+  public String getCountry() {
+    return group.getCountry();
   }
 }

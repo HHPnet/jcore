@@ -42,20 +42,15 @@ public class CreateUserServiceTest {
 
   private CreateUserService createUserService;
 
-  @Mock
-  private UserRepository repository;
+  @Mock private UserRepository repository;
 
-  @Mock
-  private UserFactory factory;
+  @Mock private UserFactory factory;
 
-  @Mock
-  private UserRequest request;
+  @Mock private UserRequest request;
 
-  @Mock
-  private User user;
+  @Mock private User user;
 
-  @Mock
-  private UserResponse userResponse;
+  @Mock private UserResponse userResponse;
 
   @Before
   public void setUp() throws Exception {

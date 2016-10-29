@@ -11,17 +11,17 @@ public class UserIdTest {
   public void itIsPossibleToGenerateAnUserIdGivenAUUID() {
     UUID userId = UUID.randomUUID();
 
-    assertThat(new UserId(userId).getUserId()).isEqualTo(userId.toString());
+    assertThat(new UserId(userId).getId()).isEqualTo(userId.toString());
   }
 
   @Test
   public void itIsPossibleToGenerateARandomUserId() {
-    assertThat(new UserId().getUserId()).isInstanceOf(String.class);
+    assertThat(new UserId().getId()).isInstanceOf(String.class);
   }
 
   @Test
   public void itIsPossibleToGenerateAnUserIdGivenAnString() {
     String userId = "832975fc-b717-4546-90e8-f7d708be1cff";
-    assertThat(new UserId(userId).getUserId()).isEqualTo(userId);
+    assertThat(new UserId(userId).getId()).isEqualTo(userId);
   }
 }

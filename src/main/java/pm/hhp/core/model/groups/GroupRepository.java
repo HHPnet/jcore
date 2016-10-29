@@ -15,20 +15,14 @@
  *
  */
 
-package pm.hhp.core.model.users;
+package pm.hhp.core.model.groups;
 
-import pm.hhp.core.model.SharedId;
+import pm.hhp.core.model.groups.exceptions.GroupNotFoundException;
 
-import java.util.UUID;
+public interface GroupRepository {
+  Group save(Group group);
 
-class UserId extends SharedId {
-  UserId(UUID uuid) {
-    super(uuid);
-  }
+  Group findById(String groupId) throws GroupNotFoundException;
 
-  UserId() {}
-
-  UserId(String uuid) {
-    super(uuid);
-  }
+  Group findByName(String name) throws GroupNotFoundException;
 }

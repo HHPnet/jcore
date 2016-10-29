@@ -15,54 +15,68 @@
  *
  */
 
-package pm.hhp.core.services.users;
+package pm.hhp.core.services.groups;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import pm.hhp.core.model.users.User;
+import pm.hhp.core.model.groups.Group;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.doReturn;
 
-public class UserResponseTest {
-  private UserResponse userResponse;
+public class GroupResponseTest {
+  private GroupResponse response;
 
-  @Mock private User user;
+  @Mock private Group group;
 
   @Before
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
 
-    userResponse = new UserResponse(user);
+    response = new GroupResponse(group);
   }
 
   @After
   public void tearDown() throws Exception {
-    userResponse = null;
-    user = null;
+    response = null;
+    group = null;
   }
 
   @Test
-  public void itIsPossibleToGetUserId() {
-    doReturn("test").when(user).getUserId();
+  public void itIsPossibleToGetGroupId() {
+    doReturn("test").when(group).getGroupId();
 
-    assertThat(userResponse.getUserId()).isEqualTo("test");
+    assertThat(response.getGroupId()).isEqualTo("test");
   }
 
   @Test
-  public void itIsPossibleToGetUserName() {
-    doReturn("test").when(user).getName();
+  public void itIsPossibleToGetGroupName() {
+    doReturn("test").when(group).getName();
 
-    assertThat(userResponse.getName()).isEqualTo("test");
+    assertThat(response.getName()).isEqualTo("test");
   }
 
   @Test
-  public void itIsPossibleToGetUserEmail() {
-    doReturn("test").when(user).getEmail();
+  public void itIsPossibleToGetGroupDescription() {
+    doReturn("test").when(group).getDescription();
 
-    assertThat(userResponse.getEmail()).isEqualTo("test");
+    assertThat(response.getDescription()).isEqualTo("test");
+  }
+
+  @Test
+  public void itIsPossibleToGetGroupCity() {
+    doReturn("test").when(group).getCity();
+
+    assertThat(response.getCity()).isEqualTo("test");
+  }
+
+  @Test
+  public void itIsPossibleToGetGroupCountry() {
+    doReturn("test").when(group).getCountry();
+
+    assertThat(response.getCountry()).isEqualTo("test");
   }
 }
