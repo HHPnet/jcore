@@ -16,9 +16,20 @@ dependencies {
   testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 }
 
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.10'
+  }
+}
+
+apply plugin: 'info.solidsoft.pitest'
 
 checkstyle {
   configFile = file('checkstyle.xml')
   toolVersion = '7.1.2'
   showViolations = true
+  ignoreFailures = false
 }

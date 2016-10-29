@@ -24,12 +24,12 @@ import pm.hhp.core.services.Service;
 import pm.hhp.core.services.groups.GroupRequest;
 import pm.hhp.core.services.groups.GroupResponse;
 
-public class GetGroupInformationService implements Service<GroupRequest, GroupResponse> {
+class GetGroupInformationService implements Service<GroupRequest, GroupResponse> {
   private GroupRepository repository;
 
   private GroupFactory factory;
 
-  public GetGroupInformationService(GroupRepository repository, GroupFactory factory) {
+  GetGroupInformationService(GroupRepository repository, GroupFactory factory) {
     this.repository = repository;
     this.factory = factory;
   }
@@ -38,7 +38,7 @@ public class GetGroupInformationService implements Service<GroupRequest, GroupRe
   public GroupResponse execute(GroupRequest request) {
     try {
       return factory.getGroupResponse(repository.findById(request.getGroupId().orElse(null)));
-    } catch (GroupNotFoundException e) {
+    } catch (GroupNotFoundException groupNotFoundException) {
       return null;
     }
   }

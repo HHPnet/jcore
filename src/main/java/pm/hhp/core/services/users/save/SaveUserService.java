@@ -48,17 +48,11 @@ class SaveUserService implements Service<UserRequest, UserResponse> {
         factory.getUserEntity(
             request.getUserId().orElse(null), request.getName(), request.getEmail());
     try {
-      userExists(user);
+      repository.findById(user.getUserId());
 
       return factory.getUserResponse(repository.save(user));
     } catch (UserNotFoundException userNotFound) {
       return null;
     }
-  }
-
-  private boolean userExists(User user) throws UserNotFoundException {
-    repository.findById(user.getUserId());
-
-    return true;
   }
 }

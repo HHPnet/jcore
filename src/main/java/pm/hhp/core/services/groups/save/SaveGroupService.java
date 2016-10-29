@@ -46,16 +46,10 @@ public class SaveGroupService implements Service<GroupRequest, GroupResponse> {
             request.getCountry());
 
     try {
-      checkGroupExists(group);
+      repository.findById(group.getGroupId());
       return factory.getGroupResponse(repository.save(group));
     } catch (GroupNotFoundException groupNotFoundException) {
       return null;
     }
-  }
-
-  private boolean checkGroupExists(Group group) throws GroupNotFoundException {
-    repository.findById(group.getGroupId());
-
-    return true;
   }
 }
