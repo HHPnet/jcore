@@ -15,35 +15,21 @@
  *
  */
 
-package pm.hhp.core.services.groups;
+package pm.hhp.core.model.albums;
 
-import pm.hhp.core.model.groups.Group;
-import pm.hhp.core.services.ServiceResponse;
+import pm.hhp.core.model.SharedId;
 
-public class GroupResponse implements ServiceResponse {
-  private final Group group;
+import java.util.UUID;
 
-  public GroupResponse(Group group) {
-    this.group = group;
+class AlbumId extends SharedId {
+  public AlbumId(UUID uuid) {
+    super(uuid);
   }
 
-  public String getGroupId() {
-    return group.getGroupId();
+  public AlbumId() {
   }
 
-  public String getName() {
-    return group.getName();
-  }
-
-  public String getDescription() {
-    return group.getDescription();
-  }
-
-  public String getCity() {
-    return group.getCity();
-  }
-
-  public String getCountry() {
-    return group.getCountry();
+  public AlbumId(String uuid) {
+    super(uuid);
   }
 }

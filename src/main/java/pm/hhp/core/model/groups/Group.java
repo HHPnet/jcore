@@ -19,7 +19,7 @@ package pm.hhp.core.model.groups;
 
 public class Group {
 
-  private GroupId groupId;
+  private final GroupId groupId;
 
   private String name;
 
