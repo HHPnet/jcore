@@ -25,7 +25,7 @@ import pm.hhp.core.services.Service;
 import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
-class SaveUserService implements Service<UserRequest, UserResponse> {
+public class SaveUserService implements Service<UserRequest, UserResponse> {
   private UserRepository repository;
 
   private UserFactory factory;
@@ -36,7 +36,7 @@ class SaveUserService implements Service<UserRequest, UserResponse> {
    * @param repository User repository.
    * @param factory User factory.
    */
-  SaveUserService(UserRepository repository, UserFactory factory) {
+  public SaveUserService(UserRepository repository, UserFactory factory) {
     this.repository = repository;
     this.factory = factory;
   }

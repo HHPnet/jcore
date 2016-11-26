@@ -25,12 +25,12 @@ import pm.hhp.core.services.Service;
 import pm.hhp.core.services.groups.GroupRequest;
 import pm.hhp.core.services.groups.GroupResponse;
 
-class CreateGroupService implements Service<GroupRequest, GroupResponse> {
+public class CreateGroupService implements Service<GroupRequest, GroupResponse> {
   private GroupRepository repository;
 
   private GroupFactory factory;
 
-  CreateGroupService(GroupRepository repository, GroupFactory factory) {
+  public CreateGroupService(GroupRepository repository, GroupFactory factory) {
     this.repository = repository;
     this.factory = factory;
   }
