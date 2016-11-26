@@ -20,13 +20,18 @@ dependencies {
 buildscript {
   repositories {
     mavenCentral()
+    maven {
+      url 'https://plugins.gradle.org/m2/'
+    }
   }
   dependencies {
     classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.10'
+    classpath 'gradle.plugin.net.vivin:gradle-semantic-build-versioning:2.0.2'
   }
 }
 
 apply plugin: 'info.solidsoft.pitest'
+apply plugin: 'net.vivin.gradle-semantic-build-versioning'
 
 checkstyle {
   configFile = file('checkstyle.xml')
@@ -34,7 +39,6 @@ checkstyle {
   showViolations = true
   ignoreFailures = false
 }
-
 
 task sourcesJar(type: Jar, dependsOn: classes) {
   classifier = 'sources'
