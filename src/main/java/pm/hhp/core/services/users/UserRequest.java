@@ -22,11 +22,11 @@ import pm.hhp.core.services.ServiceRequest;
 import java.util.Optional;
 
 public class UserRequest implements ServiceRequest {
-  private String userId;
+  private final String userId;
 
-  private String name;
+  private final String name;
 
-  private String email;
+  private final String email;
 
   /**
    * Generate a request to save an user.
@@ -48,6 +48,7 @@ public class UserRequest implements ServiceRequest {
    * @param email Email of the user.
    */
   public UserRequest(String name, String email) {
+    this.userId = null;
     this.name = name;
     this.email = email;
   }
@@ -59,6 +60,8 @@ public class UserRequest implements ServiceRequest {
    */
   public UserRequest(String userId) {
     this.userId = userId;
+    this.name = null;
+    this.email = null;
   }
 
   /**

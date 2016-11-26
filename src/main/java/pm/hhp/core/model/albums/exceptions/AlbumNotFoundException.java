@@ -15,35 +15,7 @@
  *
  */
 
-package pm.hhp.core.services.groups;
+package pm.hhp.core.model.albums.exceptions;
 
-import pm.hhp.core.model.groups.Group;
-import pm.hhp.core.services.ServiceResponse;
-
-public class GroupResponse implements ServiceResponse {
-  private final Group group;
-
-  public GroupResponse(Group group) {
-    this.group = group;
-  }
-
-  public String getGroupId() {
-    return group.getGroupId();
-  }
-
-  public String getName() {
-    return group.getName();
-  }
-
-  public String getDescription() {
-    return group.getDescription();
-  }
-
-  public String getCity() {
-    return group.getCity();
-  }
-
-  public String getCountry() {
-    return group.getCountry();
-  }
+public class AlbumNotFoundException extends Exception {
 }

@@ -19,7 +19,7 @@ package pm.hhp.core.model.users;
 
 public class User {
 
-  private UserId userId;
+  private final UserId userId;
 
   private String name;
 

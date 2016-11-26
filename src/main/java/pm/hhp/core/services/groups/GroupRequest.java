@@ -22,15 +22,15 @@ import pm.hhp.core.services.ServiceRequest;
 import java.util.Optional;
 
 public class GroupRequest implements ServiceRequest {
-  private String groupId;
+  private final String groupId;
 
-  private String name;
+  private final String name;
 
-  private String description;
+  private final String description;
 
-  private String city;
+  private final String city;
 
-  private String country;
+  private final String country;
 
   /**
    * Generate a request to interact with group services.
@@ -41,6 +41,7 @@ public class GroupRequest implements ServiceRequest {
    * @param country Group country.
    */
   public GroupRequest(String name, String description, String city, String country) {
+    this.groupId = null;
     this.name = name;
     this.description = description;
     this.city = city;
@@ -57,7 +58,8 @@ public class GroupRequest implements ServiceRequest {
    * @param country Group country.
    */
   public GroupRequest(
-      String groupId, String name, String description, String city, String country) {
+      String groupId, String name, String description, String city, String country
+  ) {
     this.groupId = groupId;
     this.name = name;
     this.description = description;

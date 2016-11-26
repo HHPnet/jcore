@@ -21,7 +21,7 @@ import pm.hhp.core.model.users.User;
 import pm.hhp.core.services.ServiceResponse;
 
 public class UserResponse implements ServiceResponse {
-  private User user;
+  private final User user;
 
   /**
    * Generates an user response entity.
