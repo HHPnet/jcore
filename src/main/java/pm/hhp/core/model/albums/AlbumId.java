@@ -22,14 +22,14 @@ import pm.hhp.core.model.SharedId;
 import java.util.UUID;
 
 class AlbumId extends SharedId {
-  public AlbumId(UUID uuid) {
+  AlbumId(UUID uuid) {
     super(uuid);
   }
 
-  public AlbumId() {
+  AlbumId() {
   }
 
-  public AlbumId(String uuid) {
+  AlbumId(String uuid) {
     super(uuid);
   }
 }
