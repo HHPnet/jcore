@@ -23,26 +23,56 @@ import pm.hhp.core.services.ServiceResponse;
 public class GroupResponse implements ServiceResponse {
   private final Group group;
 
+  /**
+   * Generates a group response.
+   *
+   * @param group Group to generate the response.
+   */
   public GroupResponse(Group group) {
     this.group = group;
   }
 
+  /**
+   * Getter for property 'groupId'.
+   *
+   * @return Value for property 'groupId'.
+   */
   public String getGroupId() {
     return group.getGroupId();
   }
 
+  /**
+   * Getter for property 'name'.
+   *
+   * @return Value for property 'name'.
+   */
   public String getName() {
     return group.getName();
   }
 
+  /**
+   * Getter for property 'description'.
+   *
+   * @return Value for property 'description'.
+   */
   public String getDescription() {
     return group.getDescription();
   }
 
+  /**
+   * Getter for property 'city'.
+   *
+   * @return Value for property 'city'.
+   */
   public String getCity() {
     return group.getCity();
   }
 
+  /**
+   * Getter for property 'country'.
+   *
+   * @return Value for property 'country'.
+   */
   public String getCountry() {
     return group.getCountry();
   }
