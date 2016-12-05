@@ -37,7 +37,7 @@ public class UserResponse implements ServiceResponse {
    *
    * @return String
    */
-  String getUserId() {
+  public String getUserId() {
     return user.getUserId();
   }
 
@@ -46,7 +46,7 @@ public class UserResponse implements ServiceResponse {
    *
    * @return String
    */
-  String getName() {
+  public String getName() {
     return user.getName();
   }
 
@@ -55,7 +55,7 @@ public class UserResponse implements ServiceResponse {
    *
    * @return String
    */
-  String getEmail() {
+  public String getEmail() {
     return user.getEmail();
   }
 }
