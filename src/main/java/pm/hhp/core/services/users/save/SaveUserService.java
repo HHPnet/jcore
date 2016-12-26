@@ -20,6 +20,7 @@ package pm.hhp.core.services.users.save;
 import pm.hhp.core.model.users.User;
 import pm.hhp.core.model.users.UserFactory;
 import pm.hhp.core.model.users.UserRepository;
+import pm.hhp.core.model.users.exceptions.UserAlreadyExistsException;
 import pm.hhp.core.model.users.exceptions.UserNotAllowedToPerfomActionException;
 import pm.hhp.core.model.users.exceptions.UserNotFoundException;
 import pm.hhp.core.services.Service;
@@ -36,8 +37,9 @@ public class SaveUserService implements Service<UserRequest, UserResponse> {
 
   /**
    * Get the save user service instance.
-   * @param repository User repository.
-   * @param factory User factory.
+   *
+   * @param repository  User repository.
+   * @param factory     User factory.
    * @param userSession User session.
    */
   public SaveUserService(UserRepository repository, UserFactory factory, UserSession userSession) {
@@ -52,15 +54,30 @@ public class SaveUserService implements Service<UserRequest, UserResponse> {
       throw new UserNotAllowedToPerfomActionException();
     }
 
-    User user =
-        factory.getUserEntity(
-            request.getUserId().orElse(null), request.getName(), request.getEmail());
+    User user = factory.getUserEntity(
+            request.getUserId().orElse(null), request.getName(), request.getEmail()
+    );
+
     try {
       repository.findById(user.getUserId());
+      if (emailAlreadyExists(request)) {
+        throw new UserAlreadyExistsException();
+      }
 
       return factory.getUserResponse(repository.save(user));
-    } catch (UserNotFoundException userNotFound) {
+    } catch (UserNotFoundException | UserAlreadyExistsException userNotFound) {
       return null;
+    }
+  }
+
+  private boolean emailAlreadyExists(UserRequest request) {
+    try {
+      User user = repository.findByEmail(request.getEmail());
+
+      return user.getEmail().equals(request.getEmail())
+              && !user.getUserId().equals(request.getUserId().orElse(null));
+    } catch (UserNotFoundException ignored) {
+      return false;
     }
   }
 }

@@ -32,10 +32,12 @@ import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -59,6 +61,8 @@ public class SaveUserServiceTest {
   @Mock private UserResponse userResponse;
 
   @Mock private UserSession userSession;
+
+  @Mock private User userWithGivenEmail;
 
   @Before
   public void setUp() throws Exception {
@@ -96,10 +100,24 @@ public class SaveUserServiceTest {
     andGivenUserInSessionIsRequestedUser();
     andGetAnUserEntityFromTheFactory();
     userExistsInDatabase();
+    andNotOtherUserHasGivenEmailRegistered();
     andUserIsSaved();
 
     assertThat(saveUserService.execute(request)).isEqualTo(userResponse);
     verify(repository, times(1)).save(user);
+  }
+
+  @Test
+  public void itDoesNotSaveUserWhenGivenEmailAlreadyExistsInOtherUser()
+          throws UserNotFoundException, UserNotAllowedToPerfomActionException {
+    givenARequestToSaveAnUser();
+    andGivenUserInSessionIsRequestedUser();
+    andGetAnUserEntityFromTheFactory();
+    userExistsInDatabase();
+    andOtherUserHasGivenEmailRegistered();
+
+    assertThat(saveUserService.execute(request)).isNull();
+    verify(repository, never()).save(user);
   }
 
   @Test(expected = UserNotAllowedToPerfomActionException.class)
@@ -128,6 +146,16 @@ public class SaveUserServiceTest {
 
   private void userExistsInDatabase() throws UserNotFoundException {
     doReturn(user).when(repository).findById(USER_ID);
+  }
+
+  private void andNotOtherUserHasGivenEmailRegistered() throws UserNotFoundException {
+    doThrow(new UserNotFoundException()).when(repository).findByEmail(USER_EMAIL);
+  }
+
+  private void andOtherUserHasGivenEmailRegistered() throws UserNotFoundException {
+    doReturn(userWithGivenEmail).when(repository).findByEmail(USER_EMAIL);
+    doReturn(USER_EMAIL).when(userWithGivenEmail).getEmail();
+    doReturn(UUID.randomUUID().toString()).when(userWithGivenEmail).getUserId();
   }
 
   private void andUserIsSaved() {
