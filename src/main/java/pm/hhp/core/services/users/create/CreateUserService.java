@@ -36,11 +36,15 @@ public class CreateUserService implements Service<UserRequest, UserResponse> {
 
   /**
    * Get the create user service instance.
-   *  @param repository User repository.
+   * @param repository User repository.
    * @param factory User factory.
-   * @param userSession
+   * @param userSession User session.
    */
-  public CreateUserService(UserRepository repository, UserFactory factory, UserSession userSession) {
+  public CreateUserService(
+          UserRepository repository,
+          UserFactory factory,
+          UserSession userSession
+  ) {
     this.repository = repository;
     this.factory = factory;
     this.userSession = userSession;

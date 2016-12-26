@@ -36,9 +36,9 @@ public class SaveUserService implements Service<UserRequest, UserResponse> {
 
   /**
    * Get the save user service instance.
-   *  @param repository User repository.
+   * @param repository User repository.
    * @param factory User factory.
-   * @param userSession
+   * @param userSession User session.
    */
   public SaveUserService(UserRepository repository, UserFactory factory, UserSession userSession) {
     this.repository = repository;
