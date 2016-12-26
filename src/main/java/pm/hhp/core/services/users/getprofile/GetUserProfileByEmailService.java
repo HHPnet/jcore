@@ -25,9 +25,9 @@ import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
 public class GetUserProfileByEmailService implements Service<UserRequest, UserResponse> {
-  private UserRepository repository;
+  private final UserRepository repository;
 
-  private UserFactory factory;
+  private final UserFactory factory;
 
   public GetUserProfileByEmailService(UserRepository repository, UserFactory factory) {
     this.repository = repository;

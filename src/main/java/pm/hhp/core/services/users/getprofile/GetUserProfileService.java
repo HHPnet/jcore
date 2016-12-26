@@ -25,9 +25,9 @@ import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
 public class GetUserProfileService implements Service<UserRequest, UserResponse> {
-  private UserRepository repository;
+  private final UserRepository repository;
 
-  private UserFactory factory;
+  private final UserFactory factory;
 
   /**
    * Get the service instance to find one user.

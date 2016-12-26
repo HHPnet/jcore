@@ -25,7 +25,9 @@ import org.mockito.MockitoAnnotations;
 import pm.hhp.core.model.users.User;
 import pm.hhp.core.model.users.UserFactory;
 import pm.hhp.core.model.users.UserRepository;
+import pm.hhp.core.model.users.exceptions.UserNotAllowedToPerfomActionException;
 import pm.hhp.core.model.users.exceptions.UserNotFoundException;
+import pm.hhp.core.services.UserSession;
 import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
@@ -56,11 +58,13 @@ public class SaveUserServiceTest {
 
   @Mock private UserResponse userResponse;
 
+  @Mock private UserSession userSession;
+
   @Before
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
 
-    saveUserService = new SaveUserService(repository, factory);
+    saveUserService = new SaveUserService(repository, factory, userSession);
   }
 
   @After
@@ -71,11 +75,14 @@ public class SaveUserServiceTest {
     request = null;
     user = null;
     userResponse = null;
+    userSession = null;
   }
 
   @Test
-  public void itDoesNotSaveDataForANonExistingUser() throws UserNotFoundException {
+  public void itDoesNotSaveDataForANonExistingUser()
+          throws UserNotFoundException, UserNotAllowedToPerfomActionException {
     givenARequestToSaveAnUser();
+    andGivenUserInSessionIsRequestedUser();
     andGetAnUserEntityFromTheFactory();
     userCouldNotBeFound();
 
@@ -83,14 +90,25 @@ public class SaveUserServiceTest {
   }
 
   @Test
-  public void itSavesAnUserWhenExisting() throws UserNotFoundException {
+  public void itSavesAnUserWhenExisting()
+          throws UserNotFoundException, UserNotAllowedToPerfomActionException {
     givenARequestToSaveAnUser();
+    andGivenUserInSessionIsRequestedUser();
     andGetAnUserEntityFromTheFactory();
     userExistsInDatabase();
     andUserIsSaved();
 
     assertThat(saveUserService.execute(request)).isEqualTo(userResponse);
     verify(repository, times(1)).save(user);
+  }
+
+  @Test(expected = UserNotAllowedToPerfomActionException.class)
+  public void itFailsWhenGivenUserInSessionIsNotRequestedUser()
+          throws UserNotAllowedToPerfomActionException {
+    givenARequestToSaveAnUser();
+    andGivenUserInSessionIsNotRequestedUser();
+
+    saveUserService.execute(request);
   }
 
   private void givenARequestToSaveAnUser() {
@@ -115,5 +133,13 @@ public class SaveUserServiceTest {
   private void andUserIsSaved() {
     doReturn(user).when(repository).save(user);
     doReturn(userResponse).when(factory).getUserResponse(user);
+  }
+
+  private void andGivenUserInSessionIsRequestedUser() {
+    doReturn(true).when(userSession).isLoggedInUserId(USER_ID);
+  }
+
+  private void andGivenUserInSessionIsNotRequestedUser() {
+    doReturn(false).when(userSession).isLoggedInUserId(USER_ID);
   }
 }

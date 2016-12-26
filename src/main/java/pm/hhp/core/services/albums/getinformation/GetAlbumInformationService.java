@@ -38,7 +38,7 @@ public class GetAlbumInformationService implements Service<AlbumRequest, AlbumRe
   public AlbumResponse execute(AlbumRequest request) {
     try {
       return factory.getAlbumResponse(repository.findById(request.getAlbumId().orElse(null)));
-    } catch (AlbumNotFoundException e) {
+    } catch (AlbumNotFoundException ignored) {
       return null;
     }
   }

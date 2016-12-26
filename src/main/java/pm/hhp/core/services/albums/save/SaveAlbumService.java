@@ -49,7 +49,7 @@ public class SaveAlbumService implements Service<AlbumRequest, AlbumResponse> {
     try {
       repository.findById(album.getAlbumId());
       return factory.getAlbumResponse(repository.save(album));
-    } catch (AlbumNotFoundException e) {
+    } catch (AlbumNotFoundException ignored) {
       return null;
     }
   }

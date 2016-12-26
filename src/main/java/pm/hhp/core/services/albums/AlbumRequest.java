@@ -44,7 +44,14 @@ public class AlbumRequest implements ServiceRequest {
    * @param description Description of the album.
    * @param cover Cover of the album.
    */
-  public AlbumRequest(String albumId, String groupId, String name, Date releaseDate, String description, String cover) {
+  public AlbumRequest(
+          String albumId,
+          String groupId,
+          String name,
+          Date releaseDate,
+          String description,
+          String cover
+  ) {
     this.albumId = albumId;
     this.groupId = groupId;
     this.name = name;
@@ -61,7 +68,13 @@ public class AlbumRequest implements ServiceRequest {
    * @param description Description of the album.
    * @param cover Cover of the album.
    */
-  public AlbumRequest(String groupId, String name, Date releaseDate, String description, String cover) {
+  public AlbumRequest(
+          String groupId,
+          String name,
+          Date releaseDate,
+          String description,
+          String cover
+  ) {
     this.albumId = null;
     this.groupId = groupId;
     this.name = name;

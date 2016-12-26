@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Mutate Tests" type="PIT" factoryName="PIT Runner" REPORT_DIR="$PROJECT_DIR$/build/reports/pit" SOURCE_DIRS="$PROJECT_DIR$/src/main/java" TARGET_CLASSES="pm.*" otherParams="--outputFormats XML,HTML">
+    <method>
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
