@@ -15,10 +15,7 @@
  *
  */
 
-package pm.hhp.core.services;
+package pm.hhp.core.model.users.exceptions;
 
-import pm.hhp.core.model.users.exceptions.UserNotAllowedToPerfomActionException;
-
-public interface Service<T, K> {
-  K execute(T request) throws UserNotAllowedToPerfomActionException;
+public class UserNotAllowedToPerfomActionException extends Exception {
 }

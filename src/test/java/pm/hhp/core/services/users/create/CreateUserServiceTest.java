@@ -25,7 +25,9 @@ import org.mockito.MockitoAnnotations;
 import pm.hhp.core.model.users.User;
 import pm.hhp.core.model.users.UserFactory;
 import pm.hhp.core.model.users.UserRepository;
+import pm.hhp.core.model.users.exceptions.UserNotAllowedToPerfomActionException;
 import pm.hhp.core.model.users.exceptions.UserNotFoundException;
+import pm.hhp.core.services.UserSession;
 import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
@@ -52,10 +54,12 @@ public class CreateUserServiceTest {
 
   @Mock private UserResponse userResponse;
 
+  @Mock private UserSession userSession;
+
   @Before
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
-    createUserService = new CreateUserService(repository, factory);
+    createUserService = new CreateUserService(repository, factory, userSession);
   }
 
   @After
@@ -66,11 +70,14 @@ public class CreateUserServiceTest {
     request = null;
     user = null;
     userResponse = null;
+    userSession = null;
   }
 
   @Test
-  public void itDoesNotSaveAnUserWhenEmailAlreadyExists() throws UserNotFoundException {
+  public void itDoesNotSaveAnUserWhenEmailAlreadyExists()
+          throws UserNotFoundException, UserNotAllowedToPerfomActionException {
     givenARequestToCreateAnUser();
+    andGivenUserInSessionIsRequestedUser();
     andGetAnUserEntityFromTheFactory();
     emailWasFound();
 
@@ -78,14 +85,25 @@ public class CreateUserServiceTest {
   }
 
   @Test
-  public void itSavesAnUserWhenEmailDoesNotExist() throws UserNotFoundException {
+  public void itSavesAnUserWhenEmailDoesNotExist()
+          throws UserNotFoundException, UserNotAllowedToPerfomActionException {
     givenARequestToCreateAnUser();
+    andGivenUserInSessionIsRequestedUser();
     andGetAnUserEntityFromTheFactory();
     emailWasNotFound();
     andUserIsSaved();
 
     assertThat(createUserService.execute(request)).isEqualTo(userResponse);
     verify(repository, times(1)).save(user);
+  }
+
+  @Test(expected = UserNotAllowedToPerfomActionException.class)
+  public void itFailsWhenGivenUserInSessionIsNotRequestedUser()
+          throws UserNotAllowedToPerfomActionException {
+    givenARequestToCreateAnUser();
+    andGivenUserInSessionIsNotRequestedUser();
+
+    createUserService.execute(request);
   }
 
   private void givenARequestToCreateAnUser() {
@@ -109,5 +127,13 @@ public class CreateUserServiceTest {
   private void andUserIsSaved() {
     doReturn(user).when(repository).save(user);
     doReturn(userResponse).when(factory).getUserResponse(user);
+  }
+
+  private void andGivenUserInSessionIsRequestedUser() {
+    doReturn(true).when(userSession).isLoggedInUserEmail(USER_EMAIL);
+  }
+
+  private void andGivenUserInSessionIsNotRequestedUser() {
+    doReturn(false).when(userSession).isLoggedInUserEmail(USER_EMAIL);
   }
 }

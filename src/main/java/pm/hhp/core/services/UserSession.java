@@ -17,8 +17,8 @@
 
 package pm.hhp.core.services;
 
-import pm.hhp.core.model.users.exceptions.UserNotAllowedToPerfomActionException;
+public interface UserSession {
+  boolean isLoggedInUserId(String userId);
 
-public interface Service<T, K> {
-  K execute(T request) throws UserNotAllowedToPerfomActionException;
+  boolean isLoggedInUserEmail(String email);
 }

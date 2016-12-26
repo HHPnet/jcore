@@ -20,33 +20,43 @@ package pm.hhp.core.services.users.create;
 import pm.hhp.core.model.users.User;
 import pm.hhp.core.model.users.UserFactory;
 import pm.hhp.core.model.users.UserRepository;
+import pm.hhp.core.model.users.exceptions.UserNotAllowedToPerfomActionException;
 import pm.hhp.core.model.users.exceptions.UserNotFoundException;
 import pm.hhp.core.services.Service;
+import pm.hhp.core.services.UserSession;
 import pm.hhp.core.services.users.UserRequest;
 import pm.hhp.core.services.users.UserResponse;
 
 public class CreateUserService implements Service<UserRequest, UserResponse> {
-  private UserRepository repository;
+  private final UserRepository repository;
 
-  private UserFactory factory;
+  private final UserFactory factory;
+
+  private final UserSession userSession;
 
   /**
    * Get the create user service instance.
-   *
-   * @param repository User repository.
+   *  @param repository User repository.
    * @param factory User factory.
+   * @param userSession
    */
-  public CreateUserService(UserRepository repository, UserFactory factory) {
+  public CreateUserService(UserRepository repository, UserFactory factory, UserSession userSession) {
     this.repository = repository;
     this.factory = factory;
+    this.userSession = userSession;
   }
 
   @Override
-  public UserResponse execute(UserRequest request) {
+  public UserResponse execute(UserRequest request) throws UserNotAllowedToPerfomActionException {
+    if (!userSession.isLoggedInUserEmail(request.getEmail())) {
+      throw new UserNotAllowedToPerfomActionException();
+    }
+
     User user = factory.getUserEntity(request.getName(), request.getEmail());
 
     try {
       repository.findByEmail(user.getEmail());
+
       return null;
     } catch (UserNotFoundException userNotFoundException) {
       return factory.getUserResponse(repository.save(user));
